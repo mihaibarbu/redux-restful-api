@@ -54,14 +54,14 @@ export default class SignupForm extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, name, email, password, password_confirmation, isLoading } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <h1>Join our community!</h1>
         <TextFieldGroup
           error={errors.name}
           label="Name"
-          value={this.state.name}
+          value={name}
           onChange={this.onChange}
           field="name"
         />
@@ -69,7 +69,7 @@ export default class SignupForm extends Component {
         <TextFieldGroup
           error={errors.email}
           label="Email"
-          value={this.state.email}
+          value={email}
           onChange={this.onChange}
           field="email"
           type="email"
@@ -78,7 +78,7 @@ export default class SignupForm extends Component {
         <TextFieldGroup
           error={errors.password}
           label="Password"
-          value={this.state.password}
+          value={password}
           onChange={this.onChange}
           field="password"
           type="password"
@@ -87,14 +87,14 @@ export default class SignupForm extends Component {
         <TextFieldGroup
           error={errors.password_confirmation}
           label="Password Confirmation"
-          value={this.state.password_confirmation}
+          value={password_confirmation}
           onChange={this.onChange}
           field="password_confirmation"
           type="password"
         />
 
         <div className="form-group">
-          <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
+          <button disabled={isLoading} className="btn btn-primary btn-lg">
             Sign up
           </button>
         </div>
