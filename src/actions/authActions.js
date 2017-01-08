@@ -1,0 +1,27 @@
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
+import config from '../config';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import { SET_CURRENT_USER } from './types';
+
+export function setCurrentUser(user) {
+  return {
+    type: SET_CURRENT_USER,
+    user
+  }
+}
+
+export function login(data) {
+  return dispatch => {
+    let loginData = { ...config.grant, ...data };
+    return axios.post('http://testing-react.dev/oauth/token', loginData)
+      .then(res => {
+        const accessToken = res.data.access_token;
+        localStorage.setItem('accessToken', accessToken);
+        setAuthorizationToken(accessToken);
+
+        dispatch(setCurrentUser(jwt.decode(accessToken)));
+      });
+  }
+}
