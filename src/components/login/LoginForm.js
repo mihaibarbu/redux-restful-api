@@ -36,7 +36,6 @@ class LoginForm extends Component {
       this.props.login(this.state).then(
         (response) => {
           this.context.router.push('/');
-          console.log(response);
         },
       ).catch(errors => {
         let e = { ...errors };
