@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 
 import config from '../config';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
@@ -21,7 +21,7 @@ export function login(data) {
         localStorage.setItem('accessToken', accessToken);
         setAuthorizationToken(accessToken);
 
-        dispatch(setCurrentUser(jwt.decode(accessToken)));
+        dispatch(setCurrentUser(jwtDecode(accessToken)));
       });
   }
 }

@@ -25,7 +25,7 @@ export default class SignupForm extends Component {
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
-    if (!isValid) {
+    if (! isValid) {
       this.setState({ errors });
     }
 

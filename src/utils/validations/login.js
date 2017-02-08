@@ -4,7 +4,7 @@ import _ from 'lodash';
 export default function validateInput(data) {
   let errors = {};
 
-  if (!Validator.isEmail(data.username)) {
+  if (! Validator.isEmail(data.username)) {
     errors.username = 'The email must be a valid email address.';
   }
   if (Validator.isEmpty(data.password)) {
