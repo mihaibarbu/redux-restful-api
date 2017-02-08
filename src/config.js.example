@@ -1,0 +1,8 @@
+export default {
+  grant: {
+    grant_type: 'password',
+    client_id: 2,
+    client_secret: '0ZMgMOAWp0snFHZHQaebVR0ud8n1NigOj3KAlmm6',
+    scope: '*'
+  }
+}
