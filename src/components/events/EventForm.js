@@ -30,7 +30,7 @@ class EventForm extends Component {
   }
 
   render() {
-    const { amount, type, note, errors, isLoading } = this.state;
+    const { amount, type, note, errors } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <h1>Create new event</h1>

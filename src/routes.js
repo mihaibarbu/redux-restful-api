@@ -6,6 +6,7 @@ import Greetings from './components/Greetings';
 import SignupPage from './components/signup/SignupPage';
 import LoginPage from './components/login/LoginPage';
 import EventPage from './components/events/EventPage';
+import CategoryPage from './components/categories/CategoryPage';
 
 import requireAuth from './utils/requireAuth';
 
@@ -15,5 +16,6 @@ export default (
     <Route path="signup" component={SignupPage} />
     <Route path="login" component={LoginPage} />
     <Route path="event/create" component={requireAuth(EventPage)} />
+    <Route path="category" component={requireAuth(CategoryPage)} />
   </Route>
 );
