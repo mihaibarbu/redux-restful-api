@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+
 import CategoriesList from './CategoriesList';
 import { fetchCategories } from '../../actions/categoriesActions';
 
@@ -10,7 +12,14 @@ class CategoryPage extends Component {
   render() {
     return (
       <div>
-        <h1>Categories list</h1>
+        <h1 className="text-center">Categories list</h1>
+        <div>
+          <Link to="/category/create">
+            <button className="btn btn-primary">
+              New Category
+            </button>
+          </Link>
+        </div>
 
         <CategoriesList categories={this.props.categories} />
       </div>

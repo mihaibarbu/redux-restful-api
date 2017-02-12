@@ -6,18 +6,12 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import { login } from '../../actions/authActions';
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      errors: {},
-      isLoading: false
-    };
-
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
+  state = {
+    username: '',
+    password: '',
+    errors: {},
+    isLoading: false
+  };
 
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -29,7 +23,7 @@ class LoginForm extends Component {
     return isValid;
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -44,8 +38,17 @@ class LoginForm extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => {
+    if (!! this.state.errors[e.target.name]) {
+      let errors = { ...this.state.error};
+      delete errors[e.target.name];
+      this.setState({
+        [e.target.name]: e.target.value,
+        errors
+      });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   }
 
   render() {

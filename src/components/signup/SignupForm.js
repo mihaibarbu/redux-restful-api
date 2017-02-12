@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
+
 import validateInput from '../../utils/validations/signup';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 export default class SignupForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      errors: {},
-      isLoading: false
-    }
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    errors: {},
+    isLoading: false
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => {
+    if (!! this.state.errors[e.target.name]) {
+      let errors = { ...this.state.errors};
+      delete errors[e.target.name];
+      this.setState({
+        [e.target.name]: e.target.value,
+        errors
+      });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   }
 
   isValid() {
@@ -32,7 +36,7 @@ export default class SignupForm extends Component {
     return isValid;
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -44,7 +48,6 @@ export default class SignupForm extends Component {
             text: 'You signed up successfully. Welcome!'
           })
           this.context.router.push('/');
-          console.log(response);
         },
       ).catch(errors => {
         let e = { ...errors };

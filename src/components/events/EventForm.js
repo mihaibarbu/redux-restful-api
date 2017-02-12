@@ -3,30 +3,46 @@ import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import { createEvent } from '../../actions/eventActions';
+import validateInput from '../../utils/validations/event';
 
 class EventForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      amount: '',
-      type: '',
-      note: '',
-      category_id: 1,
-      errors: {},
-      isLoading: false
-    }
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  state = {
+    amount: '',
+    type: '',
+    note: '',
+    category_id: 1,
+    errors: {},
+    isLoading: false
   }
 
-  onChange(e) {
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+
+    if (! isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
+
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
-    this.props.createEvent(this.state);
+
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.createEvent(this.state)
+        .then((response) => {
+          this.context.router.push('/');
+        })
+        .catch((errors) => {
+          let e = { ...errors };
+          this.setState({ errors: e.response.data, isLoading: false });
+        });
+    }
   }
 
   render() {
@@ -40,7 +56,7 @@ class EventForm extends Component {
           label="Amount"
           value={amount}
           onChange={this.onChange}
-          errors={errors.amount}
+          error={errors.amount}
           type="number"
         />
         <TextFieldGroup
@@ -48,14 +64,14 @@ class EventForm extends Component {
           label="Type"
           value={type}
           onChange={this.onChange}
-          errors={errors.type}
+          error={errors.type}
         />
         <TextFieldGroup
           field="note"
           label="Note"
           value={note}
           onChange={this.onChange}
-          errors={errors.note}
+          error={errors.note}
         />
 
         <button type="submit" className="btn btn-primary">Create</button>
