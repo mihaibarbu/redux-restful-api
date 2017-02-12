@@ -1,11 +1,18 @@
 import axios from 'axios';
 
-import { SET_CATEGORIES } from './types';
+import { SET_CATEGORIES, ADD_CATEGORY } from './types';
 
 export function setCategories(categories) {
   return {
     type: SET_CATEGORIES,
     categories
+  }
+}
+
+export function addCategory(category) {
+  return {
+    type: ADD_CATEGORY,
+    category
   }
 }
 
@@ -23,6 +30,9 @@ export function fetchCategories() {
 
 export function createCategory(category) {
   return dispatch => {
-    return axios.post('http://testing-react.dev/api/category', category);
+    return axios.post('http://testing-react.dev/api/category', category)
+      .then((response) => {
+        dispatch(addCategory(response.data));
+      });
   }
 }

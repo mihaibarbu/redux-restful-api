@@ -13,7 +13,7 @@ class CategoryPage extends Component {
     return (
       <div>
         <h1 className="text-center">Categories list</h1>
-        <div>
+        <div className="row">
           <Link to="/category/create">
             <button className="btn btn-primary">
               New Category

@@ -39,8 +39,9 @@ class CategoryForm extends Component {
     e.preventDefault();
 
     if (this.isValid()) {
+      const { name } = this.state;
       this.setState({ errors: {}, isLoading: true });
-      this.props.createCategory(this.state)
+      this.props.createCategory({ name })
       .then((response) => {
         this.context.router.push('/category');
       })
