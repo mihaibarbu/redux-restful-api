@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import validateInput from '../../utils/validations/category';
-import { createCategory } from '../../actions/categoriesActions';
+import { createCategory, addCategory } from '../../actions/categoriesActions';
 
 class CategoryForm extends Component {
   state = {
@@ -43,6 +43,7 @@ class CategoryForm extends Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.createCategory({ name })
       .then((response) => {
+        this.props.addCategory(response.data);
         this.context.router.push('/category');
       })
       .catch((errors) => {
@@ -78,11 +79,12 @@ class CategoryForm extends Component {
 }
 
 CategoryForm.propTypes = {
-  createCategory: React.PropTypes.func.isRequired
+  createCategory: React.PropTypes.func.isRequired,
+  addCategory: React.PropTypes.func.isRequired
 }
 
 CategoryForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default connect(null, { createCategory })(CategoryForm);
+export default connect(null, { createCategory, addCategory })(CategoryForm);

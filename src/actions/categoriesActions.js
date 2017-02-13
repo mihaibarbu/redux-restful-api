@@ -30,9 +30,6 @@ export function fetchCategories() {
 
 export function createCategory(category) {
   return dispatch => {
-    return axios.post('http://testing-react.dev/api/category', category)
-      .then((response) => {
-        dispatch(addCategory(response.data));
-      });
+    return axios.post('http://testing-react.dev/api/category', category);
   }
 }

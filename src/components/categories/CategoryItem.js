@@ -18,7 +18,7 @@ const CategoryItem = ({ category }) => {
 }
 
 CategoryItem.propTypes = {
-  game: React.PropTypes.object.isRequired
+  category: React.PropTypes.object.isRequired
 }
 
 export default CategoryItem;
