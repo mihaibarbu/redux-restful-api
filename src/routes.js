@@ -19,5 +19,6 @@ export default (
     <Route path="event/create" component={requireAuth(EventPage)} />
     <Route path="category" component={requireAuth(CategoryPage)} />
     <Route path="category/create" component={requireAuth(CategoryForm)} />
+    <Route path="category/:id" component={requireAuth(CategoryForm)} />
   </Route>
 );

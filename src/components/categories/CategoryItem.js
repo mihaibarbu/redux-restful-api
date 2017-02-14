@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const CategoryItem = ({ category }) => {
   return (
@@ -6,9 +7,9 @@ const CategoryItem = ({ category }) => {
       <th scope="row">{category.id}</th>
       <td>{category.name}</td>
       <td>
-        <a className="btn btn-info btn-xs">
+        <Link to={`/category/${category.id}`} className="btn btn-info btn-xs">
           Edit
-        </a>{" "}
+        </Link>{" "}
         <a className="btn btn-danger btn-xs">
           Delete
         </a>

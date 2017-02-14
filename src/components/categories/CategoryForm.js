@@ -3,13 +3,27 @@ import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import validateInput from '../../utils/validations/category';
-import { createCategory, addCategory } from '../../actions/categoriesActions';
+import { createCategory, addCategory, fetchCategory } from '../../actions/categoriesActions';
 
 class CategoryForm extends Component {
   state = {
-    name: '',
+    id: this.props.category ? this.props.category.id : null,
+    name: this.props.category ? this.props.category.name : '',
     errors: {},
     isLoading: false
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      id: nextProps.category.id,
+      name: nextProps.category.name
+    });
+  }
+
+  componentDidMount = () => {
+    if (this.props.params.id) {
+      this.props.fetchCategory(this.props.params.id);
+    }
   }
 
   onChange = (e) => {
@@ -87,4 +101,14 @@ CategoryForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default connect(null, { createCategory, addCategory })(CategoryForm);
+function mapStateToProps(state, props) {
+  if (props.params.id) {
+    return {
+      category: state.categories.find(item => item.id == props.params.id)
+    };
+  }
+
+  return { category: null };
+}
+
+export default connect(mapStateToProps, { createCategory, addCategory, fetchCategory })(CategoryForm);
